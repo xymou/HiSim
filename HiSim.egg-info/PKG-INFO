@@ -1,3 +1,44 @@
+Metadata-Version: 2.1
+Name: HiSim
+Version: 0.1.1
+Summary: A hybrid social media simulation framework based on AgentVerse and mesa
+Home-page: https://github.com/xymou/social_simulation
+Author: xymou
+Author-email: xymou20@fudan.edu.cn
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pyyaml
+Requires-Dist: fastapi==0.95.1
+Requires-Dist: uvicorn
+Requires-Dist: py3langid
+Requires-Dist: setuptools-scm
+Requires-Dist: openai==0.27.8
+Requires-Dist: opencv-python==4.8.0.76
+Requires-Dist: gradio
+Requires-Dist: httpx[socks]==0.25.0
+Requires-Dist: astunparse
+Requires-Dist: langchain==0.0.157
+Requires-Dist: scikit-learn
+Requires-Dist: pydantic==1.10.7
+Requires-Dist: typing-extensions==4.5.0
+Requires-Dist: typing-inspect==0.8.0
+Requires-Dist: colorlog
+Requires-Dist: rapidfuzz
+Requires-Dist: spacy
+Requires-Dist: seaborn
+Requires-Dist: colorama==0.4.6
+Requires-Dist: tiktoken==0.5.1
+Requires-Dist: Mesa==2.2.4
+Requires-Dist: Mesa-Viz-Tornado==0.1.3
+Requires-Dist: rank_bm25==0.2.2
+Requires-Dist: textblob==0.18.0.post0
+Provides-Extra: local
+Requires-Dist: fschat[model_worker,webui]; extra == "local"
+
 # 🙌HiSim: A Hybrid Social Media Simulation Framework
 
 This repository is the implementation of our ACL 2024-Findings paper [Unveiling the Truth and Facilitating Change: Towards Agent-based Large-scale Social Movement Simulation](https://arxiv.org/abs/2402.16333).   
@@ -62,9 +103,9 @@ export OPENAI_API_KEY="your_api_key_here"
 The micro-level simulation aims to simulate the behaviors of users at the individual level given a certain context in the pattern of single-round simulation. In this scenarios, we do not include multi-agent interaction but only observe the replication of individual behaviors.
 Here is an example:
 ```shell
-agentverse-microtest --task simulation/roe_micro --ckpt /remote-home/xymou/xymou_page/HiSim/ckpt/roe_micro/
+agentverse-microtest --task simulation/roe_micro
 ```
-For micro-level simulation, you mainly need to prepare the agent list and the corresponding context list in the [config.yaml](https://github.com/xymou/HiSim/agentverse/tasks/simulation/roe_micro/config.yaml). Since a user can be involved in different (user, context) tuples, so there may be repeated agent in the list. Data fields in the "context" includes:
+For micro-level simulation, you mainly need to prepare the agent list and the corresponding context list in the config.yaml. Since a user can be involved in different (user, context) tuples, so there may be repeated agent in the list. Data fields in the "context" includes:
 - tweet_page: the real tweet that user can see
 - trigger_news: the offline event news at the corresponding time
 - text: the ground truth reponse of the user
@@ -75,7 +116,7 @@ Note that text and msg_type will not be used in simulation. They are provided fo
 The macro-level simulation runs for consecutive rounds, to help observe how collective opinions shift over time resulting from agent interactions.
 Here is an example:
 ```shell
-agentverse-simulation --task simulation/roe_macro --ckpt /remote-home/xymou/xymou_page/HiSim/ckpt/roe_macro/
+agentverse-simulation --task simulation/roe_macro
 ```
 
 You can create your own social media simulation by defining new scenarios in agentverse/tasks/simulation. There are some key points to define a macro-level simulation:
@@ -84,7 +125,7 @@ You can create your own social media simulation by defining new scenarios in age
 - Conventional ABM-driven Users: you need to provide the type and parameters of the abm models and initial attitudes of all the agents (including both the core users and oridinary users) in the "abm_model" field
 - Target: the target/topic of the opinion modeling, such as "the Protection of Abortion", "Metoo Movement"
 - Personal Experience: you can provide the real historical tweets of the users to model the personal memory, where the txt file can be specified in memory_path of personal_history of agent. The format . If the historical tweets are not available, you can set the path to None.
-A full example can be found in the [config.yaml](https://github.com/xymou/HiSim/agentverse/tasks/simulation/roe_macro/config.yaml)
+
 
 
 

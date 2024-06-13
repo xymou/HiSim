@@ -1,0 +1,3 @@
+[console_scripts]
+agentverse-microtest = agentverse_command.main_microtest_cli:cli_main
+agentverse-simulation = agentverse_command.main_simulation_cli:cli_main
