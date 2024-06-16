@@ -64,7 +64,7 @@ Here is an example:
 ```shell
 agentverse-microtest --task simulation/roe_micro --ckpt /remote-home/xymou/xymou_page/HiSim/ckpt/roe_micro/
 ```
-For micro-level simulation, you mainly need to prepare the agent list and the corresponding context list in the [config.yaml](https://github.com/xymou/HiSim/agentverse/tasks/simulation/roe_micro/config.yaml). Since a user can be involved in different (user, context) tuples, so there may be repeated agent in the list. Data fields in the "context" includes:
+For micro-level simulation, you mainly need to prepare the agent list and the corresponding context list in the [config.yaml](https://github.com/xymou/HiSim/blob/main/agentverse/tasks/simulation/roe_micro/config.yaml). Since a user can be involved in different (user, context) tuples, so there may be repeated agent in the list. Data fields in the "context" includes:
 - tweet_page: the real tweet that user can see
 - trigger_news: the offline event news at the corresponding time
 - text: the ground truth reponse of the user
@@ -83,8 +83,11 @@ You can create your own social media simulation by defining new scenarios in age
 - Offline News Feed: pre-defined offline news can be fed by "trigger_news" in environment. It is a dict whose key is the turn of news feeding and the value is the content of the news.
 - Conventional ABM-driven Users: you need to provide the type and parameters of the abm models and initial attitudes of all the agents (including both the core users and oridinary users) in the "abm_model" field
 - Target: the target/topic of the opinion modeling, such as "the Protection of Abortion", "Metoo Movement"
-- Personal Experience: you can provide the real historical tweets of the users to model the personal memory, where the txt file can be specified in memory_path of personal_history of agent. The format . If the historical tweets are not available, you can set the path to None.
-A full example can be found in the [config.yaml](https://github.com/xymou/HiSim/agentverse/tasks/simulation/roe_macro/config.yaml)
+- Personal Experience: you can provide the real historical tweets of the users to model the personal memory, where the txt file can be specified in memory_path of personal_history of agent. The format . If the historical tweets are not available, you can set the path to None.  
+A full example can be found in the [config.yaml](https://github.com/xymou/HiSim/blob/main/agentverse/tasks/simulation/roe_macro/config.yaml)
+
+Note:  
+If you want to run the simulation with LLM-based agents only, just xxxx.
 
 
 
