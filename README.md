@@ -10,6 +10,8 @@ The framework simulates social media users in different ways:
 - [Abstract](#Abstract)
 - [Dataset](#Dataset)
 - [Getting Started](#Getting-Started)
+  - [Installation](#Installation)
+  - [Simulation](#Simulation)
 - [Citation](#Citation)
 
 ## Abstract 
