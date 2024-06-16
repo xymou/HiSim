@@ -66,7 +66,7 @@ class TwitterAgent(BaseAgent):
 
     def att2score(self, content): # use Textblob
         # label stance
-        stance = label_stance(self.llm, content, self.environment.target)
+        stance = label_stance(content, self.environment.target)
         if stance in ['Oppose']:
             sign=-1
         else:

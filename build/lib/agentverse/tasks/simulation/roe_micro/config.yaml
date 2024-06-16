@@ -1,0 +1,278 @@
+prompts:
+  prompt: &prompt |-
+    Now you are acting as an agent named ${agent_name} in the social media Twitter. You might need to performing reaction to the observation. You need to answer what you will do to the observations based on the following information:
+    (1) The agent's description: ${role_description}
+    (2) Current time is ${current_time}
+    (3) The news you got is "${trigger_news}"
+    (4) Your history memory is ${personal_history}
+    (5) Your recent memory is ${chat_history}
+    (6) The twitter page you can see is ${tweet_page}
+    (7) The notifications you can see are ${info_box}
+    
+    In terms of how you actually perform the action, you take action by calling functions. Currently, there are the following functions that can be called.
+    - post(content): Post a tweet. `content` is the sentence that you will post.
+    - retweet(content, author, original_tweet_id, original_tweet). Retweet or quote an existing tweet in your twitter page. `content` is the statements that you attach when retweeting. If you want to say nothing, set `content` to None. `author` is the author of the tweet that you want to retweet, it should be the concrete name. `original_tweet_id` and `original_tweet` are the id and content of the retweeted tweet.
+
+    Call one function at a time, please give a thought before calling these actions, i.e., use the following format strictly:
+
+    [OPTION 1]
+    Thought: due to `xxx`, I need to:
+    Action: post(content="Stop this farce!")
+
+    [OPTION 2]
+    Thought: due to `xxx`, I need to:
+    Action: retweet(content="I agree with you", author="zzz", original_tweet_id="0", original_tweet="kkk")
+
+    Now begin your actions as the agent. Remember only write one function call after `Action:`
+    Based on the above history, what will you, ${agent_name}, do next?
+
+name: twitter
+
+environment:
+  env_type: twitter
+  max_turns: 1
+  current_time: "2022-06-24 22:00:00"
+  time_delta: 43200
+  target: the protection of Abortion Rights
+  output_path: /HiSim/output/roe_micro.pkl
+  trigger_news:
+    0: ""
+  rule:
+    order:
+      type: twitter
+    visibility:
+      type: twitter
+      follower_info: {}
+    selector:
+      type: basic
+    updater:
+      type: twitter
+    describer:
+      type: twitter
+
+agents:
+- agent_type: twitter
+  current_time: '2022-06-24 22:00:00'
+  info_box:
+    info_box_type: basic
+  llm:
+    llm_type: gpt-3.5-turbo
+    max_tokens: 256
+    model: gpt-3.5-turbo-0613
+    temperature: 0
+  memory:
+    llm:
+      llm_type: gpt-3.5-turbo
+      max_new_tokens: 256
+      model: gpt-3.5-turbo-0613
+      temperature: 0
+    memory_type: twitter
+  memory_manipulator:
+    memory_manipulator_type: reflection
+  name: a***l
+  output_parser:
+    type: twitter
+  page:
+    page_type: timeline
+  personal_history:
+    deadline: '2022-06-24 22:00:00'
+    llm: gpt-3.5-turbo-0613
+    memory_path: /user_tweet/roe/a***l.txt
+    memory_type: personal_history
+    target: the protection of Abortion Rights
+    top_k: 5
+  prompt_template: *prompt
+  role_description: You are a***l. The individual, a***l, is a highly active
+    and influential female activist with left-leaning political views. a***l is
+    known for starting conversational memes and engaging with the media by posting
+    original content. a***l collect multiple thoughts, share ideas and opinions,
+    and enjoy being the first to retweet original content. a***l is passionate
+    about issues such as freedom, justice, equality, and the climate crisis. a***l
+    express a***l's views on various topics, including police response, voting
+    rights, reproductive rights, conservative judges, and COVID-19 treatments.
+- agent_type: twitter
+  current_time: '2022-06-24 22:00:00'
+  info_box:
+    info_box_type: basic
+  llm:
+    llm_type: gpt-3.5-turbo
+    max_tokens: 256
+    model: gpt-3.5-turbo-0613
+    temperature: 0
+  memory:
+    llm:
+      llm_type: gpt-3.5-turbo
+      max_new_tokens: 256
+      model: gpt-3.5-turbo-0613
+      temperature: 0
+    memory_type: twitter
+  memory_manipulator:
+    memory_manipulator_type: reflection
+  name: a***l
+  output_parser:
+    type: twitter
+  page:
+    page_type: timeline
+  personal_history:
+    deadline: '2022-06-24 22:00:00'
+    llm: gpt-3.5-turbo-0613
+    memory_path: /user_tweet/roe/a***l.txt
+    memory_type: personal_history
+    target: the protection of Abortion Rights
+    top_k: 5
+  prompt_template: *prompt
+  role_description: You are a***l. The individual, a***l, is a highly active
+    and influential female activist with left-leaning political views. a***l is
+    known for starting conversational memes and engaging with the media by posting
+    original content. a***l collect multiple thoughts, share ideas and opinions,
+    and enjoy being the first to retweet original content. a***l is passionate
+    about issues such as freedom, justice, equality, and the climate crisis. a***l
+    express a***l's views on various topics, including police response, voting
+    rights, reproductive rights, conservative judges, and COVID-19 treatments.
+- agent_type: twitter
+  current_time: '2022-06-24 22:00:00'
+  info_box:
+    info_box_type: basic
+  llm:
+    llm_type: gpt-3.5-turbo
+    max_tokens: 256
+    model: gpt-3.5-turbo-0613
+    temperature: 0
+  memory:
+    llm:
+      llm_type: gpt-3.5-turbo
+      max_new_tokens: 256
+      model: gpt-3.5-turbo-0613
+      temperature: 0
+    memory_type: twitter
+  memory_manipulator:
+    memory_manipulator_type: reflection
+  name: P***n
+  output_parser:
+    type: twitter
+  page:
+    page_type: timeline
+  personal_history:
+    deadline: '2022-06-24 22:00:00'
+    llm: gpt-3.5-turbo-0613
+    memory_path: /user_tweet/roe/P***n.txt
+    memory_type: personal_history
+    target: the protection of Abortion Rights
+    top_k: 5
+  prompt_template: *prompt
+  role_description: 'You are P***n. The individual, P***n, is a highly
+    active and influential left-leaning activist on Twitter. P***n enjoy collecting
+    and sharing ideas and opinions, particularly by retweeting original content. P***n
+    is passionate about causes P***n strongly believe in and prioritize sharing
+    information for the benefit of others. P***n''s short bio mentions being
+    a woman and an atheist, and P***n frequently use hashtags such as #Resist
+    and #AVRT. P***n''s tweets express support for Joe Biden and excitement
+    for a future without issues like child detention, tear gassing, corruption, and
+    lies.'
+- agent_type: twitter
+  current_time: '2022-06-24 22:00:00'
+  info_box:
+    info_box_type: basic
+  llm:
+    llm_type: gpt-3.5-turbo
+    max_tokens: 256
+    model: gpt-3.5-turbo-0613
+    temperature: 0
+  memory:
+    llm:
+      llm_type: gpt-3.5-turbo
+      max_new_tokens: 256
+      model: gpt-3.5-turbo-0613
+      temperature: 0
+    memory_type: twitter
+  memory_manipulator:
+    memory_manipulator_type: reflection
+  name: P***n
+  output_parser:
+    type: twitter
+  page:
+    page_type: timeline
+  personal_history:
+    deadline: '2022-06-24 22:00:00'
+    llm: gpt-3.5-turbo-0613
+    memory_path: /user_tweet/roe/P***n.txt
+    memory_type: personal_history
+    target: the protection of Abortion Rights
+    top_k: 5
+  prompt_template: *prompt
+  role_description: 'You are P***n. The individual, P***n, is a highly
+    active and influential left-leaning activist on Twitter. P***n enjoy collecting
+    and sharing ideas and opinions, particularly by retweeting original content. P***n
+    is passionate about causes P***n strongly believe in and prioritize sharing
+    information for the benefit of others. P***n''s short bio mentions being
+    a woman and an atheist, and P***n frequently use hashtags such as #Resist
+    and #AVRT. P***n''s tweets express support for Joe Biden and excitement
+    for a future without issues like child detention, tear gassing, corruption, and
+    lies.'
+
+
+context:
+- current_time: '2022-06-24T23:54:57'
+  info_box: ''
+  msg_type: retweet
+  text: 'RT @j***s: If banning abortion "stops abortions," let''s ban guns
+    and stop gun violence.'
+  trigger_news: The Supreme Court overturns metoo v. Wade, effectively ending nearly
+    50 years of federally guaranteed access to abortion. Chief Justice John Roberts
+    joined the conservative justices in the decision to uphold Mississippi's law,
+    but urged a concurring opinion concerning metoo. The decision is expected to lead
+    to abortion bans in roughly half the states in the nation.
+  tweet_page: 'tweet id: 1***5 [j***s]: If banning abortion
+    "stops abortions," let''s ban guns and stop gun violence. --Post Time: 2022-06-24T15:34:24'
+- current_time: '2022-06-25T21:23:19'
+  info_box: ''
+  msg_type: retweet
+  text: "RT @C***_: The dozen or so patients in the lobby Friday morning would\
+    \ have to be turned away. The clinic staff would have to be the ones to tell them.\
+    \  Each word landed like a blow. People cried. They screamed. They begged for\
+    \ help. It was \u201Ccomplete despair.\u201D https://t.co/eukbXkzgRJ"
+  trigger_news: The Supreme Court overturns metoo v. Wade, effectively ending nearly
+    50 years of federally guaranteed access to abortion. Chief Justice John Roberts
+    joined the conservative justices in the decision to uphold Mississippi's law,
+    but urged a concurring opinion concerning metoo. The decision is expected to lead
+    to abortion bans in roughly half the states in the nation.
+  tweet_page: "tweet id: 1***6 [C***_]: The dozen or so patients\
+    \ in the lobby Friday morning would have to be turned away. The clinic staff would\
+    \ have to be the ones to tell them.\n\nEach word landed like a blow. People cried.\
+    \ They screamed. They begged for help. It was \u201Ccomplete despair.\u201D\n\
+    https://t.co/eukbXkzgRJ --Post Time: 2022-06-25T00:49:48"
+
+- current_time: '2022-06-24T23:54:06'
+  info_box: ''
+  msg_type: retweet
+  text: "RT @z***a: i\u2019m so tired of abortion rights being framed around truly\
+    \ tragic circumstances like assault and incest. if you get pregnant &amp; you\
+    \ don\u2019t want to be pregnant, it is your right over your own body that is\
+    \ under siege. no one, including a fetus, can use your body against your consent."
+  trigger_news: The Supreme Court overturns metoo v. Wade, effectively ending nearly
+    50 years of federally guaranteed access to abortion. Chief Justice John Roberts
+    joined the conservative justices in the decision to uphold Mississippi's law,
+    but urged a concurring opinion concerning metoo. The decision is expected to lead
+    to abortion bans in roughly half the states in the nation.
+  tweet_page: "tweet id: 1***3 [z***a]: i\u2019m so tired of abortion\
+    \ rights being framed around truly tragic circumstances like assault and incest.\
+    \ if you get pregnant &amp; you don\u2019t want to be pregnant, it is your right\
+    \ over your own body that is under siege. no one, including a fetus, can use your\
+    \ body against your consent. --Post Time: 2022-06-24T16:44:03"
+- current_time: '2022-06-25T17:20:10'
+  info_box: ''
+  msg_type: retweet
+  text: "RT @M***W: Som abortion thoughts: I teach sex ed and when I explain\
+    \ the menstrual cycle, I emphasize that if you are expecting your period, it\u2019\
+    s one day late, and you take a pregnancy test, if it comes back positive, you\
+    \ are considered 4 weeks + 1 day into your pregnancy."
+  trigger_news: The Supreme Court overturns metoo v. Wade, effectively ending nearly
+    50 years of federally guaranteed access to abortion. Chief Justice John Roberts
+    joined the conservative justices in the decision to uphold Mississippi's law,
+    but urged a concurring opinion concerning metoo. The decision is expected to lead
+    to abortion bans in roughly half the states in the nation.
+  tweet_page: "tweet id: 1***5 [M***W]: Som abortion thoughts:\
+    \ I teach sex ed and when I explain the menstrual cycle, I emphasize that if you\
+    \ are expecting your period, it\u2019s one day late, and you take a pregnancy\
+    \ test, if it comes back positive, you are considered 4 weeks + 1 day into your\
+    \ pregnancy. --Post Time: 2022-06-24T22:50:56"

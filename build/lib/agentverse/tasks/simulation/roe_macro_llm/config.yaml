@@ -1,0 +1,193 @@
+prompts:
+  prompt: &prompt |-
+    Now you are acting as an agent named ${agent_name} in the social media Twitter. You might need to performing reaction to the observation. You need to answer what you will do to the observations based on the following information:
+    (1) The agent's description: ${role_description}
+    (2) Current time is ${current_time}
+    (3) The news you got is "${trigger_news}"
+    (4) Your history memory is ${personal_history}
+    (5) Your recent memory is ${chat_history}
+    (6) The twitter page you can see is ${tweet_page}
+    (7) The notifications you can see are ${info_box}
+    
+    In terms of how you actually perform the action, you take action by calling functions. Currently, there are the following functions that can be called.
+    - do_nothing(): Do nothing. There is nothing that you like to respond to.
+    - post(content): Post a tweet. `content` is the sentence that you will post.
+    - retweet(content, author, original_tweet_id, original_tweet). Retweet or quote an existing tweet in your twitter page. `content` is the statements that you add when retweeting. If you want to say nothing, set `content` to None. `author` is the author of the tweet that you want to retweet, it should be the concrete name. `original_tweet_id` and `original_tweet` are the id and content of the retweeted tweet.
+    - reply(content, author, original_tweet_id). Reply to an existing tweet in your twitter page or reply one of replies in your notifications, but don't reply to yourself and those not in your tweet page. `content` is what you will reply to the original tweet or other comments. `author` is the author of the original tweet or comment that you want to reply to. `original_tweet_id` is the id of the original tweet.
+    - like(author, original_tweet_id). Press like on an existing tweet in your twitter page. `author` is the author of the original tweet that you like. `original_tweet_id` is the id of the original tweet.
+
+    Call one function at a time, please give a thought before calling these actions, i.e., use the following format strictly:
+
+    [OPTION 1]
+    Thought: None of the observation attract my attention, I need to:
+    Action: do_nothing()
+
+    [OPTION 2]
+    Thought: due to `xxx`, I need to:
+    Action: post(content="Stop this farce!")
+
+    [OPTION 3]
+    Thought: due to `xxx`, I need to:
+    Action: retweet(content="I agree with you", author="zzz", original_tweet_id="0", original_tweet="kkk")
+
+    [OPTION 4]
+    Thought: due to `xxx`, I need to:
+    Action: reply(content="yyy", author="zzz", original_tweet_id="0")
+
+    [OPTION 5]
+    Thought: due to `xxx`, I need to:
+    Action: like(author="zzz", original_tweet_id="1")
+
+    Now begin your actions as the agent. Remember give a thought after and `Thought:` and only write one function call after `Action:`
+    Based on the above history, what will you, ${agent_name}, do next?
+
+  context_prompt: &context_prompt |-
+    How does ${agent_name} typically respond to news related to political and social causes he or she strongly believes in?
+    Has ${agent_name} expressed any thoughts or opinions about abortion or reproductive rights previously?
+    Does ${agent_name} tend to retweet and share original content related to political and social issues?
+
+name: twitter
+
+environment:
+  env_type: twitter
+  max_turns: 3
+  current_time: "2022-06-24 22:00:00"
+  time_delta: 43200
+  target: the protection of Abortion Rights
+  output_path: /HiSim/output/roe_macro_llm.pkl
+  trigger_news:
+    0: News- The Supreme Court overturns Roe v. Wade, effectively ending nearly 50 years of federally guaranteed access to abortion. Chief Justice John Roberts joined the conservative justices in the decision to uphold Mississippi's law, but urged a concurring opinion concerning Roe. The decision is expected to lead to abortion bans in roughly half the states in the nation.
+    11: News- More than 180 abortion rights protesters were arrested in Washington, D.C. after sitting and blocking an intersection near the Supreme Court.
+  rule:
+    order:
+      type: twitter
+    visibility:
+      type: twitter
+      follower_info: {"a***l":["P***n"], "P***n":["H***t"]} # example_data/follower_dict.json
+    selector:
+      type: basic
+    updater:
+      type: twitter
+    describer:
+      type: twitter
+
+agents:
+- agent_type: twitter
+  context_prompt_template: *context_prompt
+  current_time: '2022-06-24 22:00:00'
+  info_box:
+    info_box_type: basic
+  llm:
+    llm_type: gpt-3.5-turbo
+    max_tokens: 256
+    model: gpt-3.5-turbo-0613
+    temperature: 1
+  memory:
+    llm:
+      llm_type: gpt-3.5-turbo
+      max_new_tokens: 256
+      model: gpt-3.5-turbo-0613
+      temperature: 1
+    memory_type: twitter
+  memory_manipulator:
+    memory_manipulator_type: reflection
+  name: a***l
+  output_parser:
+    type: twitter
+  page:
+    page_type: timeline
+  personal_history:
+    deadline: '2022-06-24 22:00:00'
+    llm: gpt-3.5-turbo-0613
+    memory_path: /user_tweet/roe/a***l.txt
+    memory_type: personal_history
+    target: the protection of Abortion Rights
+    top_k: 5
+  prompt_template: *prompt
+  role_description: You are a***l. The individual, a***l, is a highly active
+    and influential female activist with left-leaning political views. a***l is
+    known for starting conversational memes and engaging with the media by posting
+    original content. a***l collect multiple thoughts, share ideas and opinions,
+    and enjoy being the first to retweet original content. a***l is passionate
+    about issues such as freedom, justice, equality, and the climate crisis. a***l
+    express a***l's views on various topics, including police response, voting
+    rights, reproductive rights, conservative judges, and COVID-19 treatments.
+- agent_type: twitter
+  context_prompt_template: *context_prompt
+  current_time: '2022-06-24 22:00:00'
+  info_box:
+    info_box_type: basic
+  llm:
+    llm_type: gpt-3.5-turbo
+    max_tokens: 256
+    model: gpt-3.5-turbo-0613
+    temperature: 1
+  memory:
+    llm:
+      llm_type: gpt-3.5-turbo
+      max_new_tokens: 256
+      model: gpt-3.5-turbo-0613
+      temperature: 1
+    memory_type: twitter
+  memory_manipulator:
+    memory_manipulator_type: reflection
+  name: P***n
+  output_parser:
+    type: twitter
+  page:
+    page_type: timeline
+  personal_history:
+    deadline: '2022-06-24 22:00:00'
+    llm: gpt-3.5-turbo-0613
+    memory_path: /user_tweet/roe/P***n.txt
+    memory_type: personal_history
+    target: the protection of Abortion Rights
+    top_k: 5
+  prompt_template: *prompt
+  role_description: 'You are P***n. The individual, P***n, is a highly
+    active and influential left-leaning activist on Twitter. P***n enjoy collecting
+    and sharing ideas and opinions, particularly by retweeting original content. P***n
+    is passionate about causes P***n strongly believe in and prioritize sharing
+    information for the benefit of others. P***n''s short bio mentions being
+    a woman and an atheist, and P***n frequently use hashtags such as #Resist
+    and #AVRT. P***n''s tweets express support for Joe Biden and excitement
+    for a future without issues like child detention, tear gassing, corruption, and
+    lies.'
+- agent_type: twitter
+  context_prompt_template: *context_prompt
+  current_time: '2022-06-24 22:00:00'
+  info_box:
+    info_box_type: basic
+  llm:
+    llm_type: gpt-3.5-turbo
+    max_tokens: 256
+    model: gpt-3.5-turbo-0613
+    temperature: 1
+  memory:
+    llm:
+      llm_type: gpt-3.5-turbo
+      max_new_tokens: 256
+      model: gpt-3.5-turbo-0613
+      temperature: 1
+    memory_type: twitter
+  memory_manipulator:
+    memory_manipulator_type: reflection
+  name: H***t
+  output_parser:
+    type: twitter
+  page:
+    page_type: timeline
+  personal_history:
+    deadline: '2022-06-24 22:00:00'
+    llm: gpt-3.5-turbo-0613
+    memory_path: /user_tweet/roe/H***t.txt
+    memory_type: personal_history
+    target: the protection of Abortion Rights
+    top_k: 5
+  prompt_template: *prompt
+  role_description: You are H***t. H***t is an activist who is highly active
+    on social media. H***t has a moderately influential presence and are known
+    for H***t's ability to detail and refine ideas. H***t strongly feel about
+    certain issues and are motivated to share information for the benefit of others.
+    H***t's political leaning is right, and H***t engage in discussions and
+    express H***t's opinions on various topics.

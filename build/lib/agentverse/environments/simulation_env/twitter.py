@@ -114,11 +114,12 @@ class TwitterEnvironment(BaseEnvironment):
         self.print_messages(selected_messages)
 
         # Update opinion of mirror and other naive agents
-        # update naive agents using info of last turn first
-        self.abm_model.step()
-        # then substitude the value of mirror using LLM results
-        for i in agent_ids:
-            self.abm_model.update_mirror(self.agents[i].name, self.agents[i].atts[-1])
+        # update naive agents
+        if self.abm_model is not None:
+            self.abm_model.step()
+            # then substitude the value of mirror using LLM results
+            for i in agent_ids:
+                self.abm_model.update_mirror(self.agents[i].name, self.agents[i].atts[-1])
 
         # Update the database of public tweets
         self.rule.update_tweet_db(self)
@@ -176,10 +177,11 @@ class TwitterEnvironment(BaseEnvironment):
         for agent in self.agents:
             data[agent.name] = agent.data_collector
         # naive agents in ABM model
-        opinion = {}
-        for agent in self.abm_model.schedule.agents:
-            opinion[agent.name] = agent.att[-1]
-        data['opinion_results'] = opinion
+        if self.abm_model is not None:
+            opinion = {}
+            for agent in self.abm_model.schedule.agents:
+                opinion[agent.name] = agent.att[-1]
+            data['opinion_results'] = opinion
         print('Output to {}'.format(self.output_path))
         with open(self.output_path,'wb') as f:
             pickle.dump(data, f)

@@ -101,7 +101,6 @@ class Reflection(BaseMemoryManipulator):
                 self.memory2immediacy[memory.content] = self.get_immediacy(
                     memory.content
                 )
-                # print(self.memory2importance)
 
         for score in self.memory2importance.values():
             accumulated_importance += score

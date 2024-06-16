@@ -102,8 +102,6 @@ def label_stance(text, target):
     prompt = "What's the author's stance on {}? Please choose from Support, Neutral, and Oppose. Only output your choice.\n\n".format(target)
     text_sample = "Text: "+text+'\n'+'Stance: '
     prompt = prompt+text_sample
-    # response = LLM.generate_response(prepend_prompt=prompt)
-    # response = response.content
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[

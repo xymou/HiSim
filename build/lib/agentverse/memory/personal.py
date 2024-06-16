@@ -19,10 +19,8 @@ import os
 import re
 from rank_bm25 import BM25Okapi
 from sklearn.feature_extraction import _stop_words
-import faiss
 import string
 import numpy as np
-import torch
 import openai
 
 def bm25_tokenizer(text):
