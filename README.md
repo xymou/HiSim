@@ -64,7 +64,7 @@ export OPENAI_API_KEY="your_api_key_here"
 The micro-level simulation aims to simulate the behaviors of users at the individual level given a certain context in the pattern of single-round simulation. In this scenarios, we do not include multi-agent interaction but only observe the replication of individual behaviors.
 Here is an example:
 ```shell
-agentverse-microtest --task simulation/roe_micro --ckpt /remote-home/xymou/xymou_page/HiSim/ckpt/roe_micro/
+agentverse-microtest --task simulation/roe_micro --ckpt path_to_save_the_intermediate_status
 ```
 For micro-level simulation, you mainly need to prepare the agent list and the corresponding context list in the [config.yaml](https://github.com/xymou/HiSim/blob/main/agentverse/tasks/simulation/roe_micro/config.yaml). Since a user can be involved in different (user, context) tuples, so there may be repeated agent in the list. Data fields in the "context" includes:
 - tweet_page: the real tweet that user can see
@@ -77,7 +77,7 @@ Note that text and msg_type will not be used in simulation. They are provided fo
 The macro-level simulation runs for consecutive rounds, to help observe how collective opinions shift over time resulting from agent interactions.
 Here is an example:
 ```shell
-agentverse-simulation --task simulation/roe_macro_hybrid --ckpt /remote-home/xymou/xymou_page/HiSim/ckpt/roe_macro/
+agentverse-simulation --task simulation/roe_macro_hybrid --ckpt path_to_save_the_intermediate_status
 ```
 
 You can create your own social media simulation by defining new scenarios in agentverse/tasks/simulation. There are some key points to define a macro-level simulation:
