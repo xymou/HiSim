@@ -34,7 +34,7 @@ environment:
   current_time: "2022-06-24 22:00:00"
   time_delta: 43200
   target: the protection of Abortion Rights
-  output_path: /remote-home/xymou/xymou_page/HiSim/output/roe_micro.pkl
+  output_path: /HiSim/output/roe_micro.pkl
   trigger_news:
     0: ""
   rule:

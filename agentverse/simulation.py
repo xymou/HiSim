@@ -33,13 +33,15 @@ class Simulation:
             agent = load_agent(agent_configs)
             agents.append(agent)
        
-        abm_config = task_config["abm_model"]
-        abm_model = load_abm_model(abm_config)
+        if "abm_model" in task_config:
+            abm_config = task_config["abm_model"]
+            abm_model = load_abm_model(abm_config)
 
         # Build the environment
         env_config = task_config["environment"]
         env_config["agents"] = agents
-        env_config['abm_model'] = abm_model
+        if "abm_model" in task_config:
+            env_config['abm_model'] = abm_model
         environment = load_environment(env_config)
 
         return cls(agents, environment, ckpt_dir)

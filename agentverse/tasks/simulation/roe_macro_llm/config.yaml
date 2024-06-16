@@ -54,7 +54,7 @@ environment:
   current_time: "2022-06-24 22:00:00"
   time_delta: 43200
   target: the protection of Abortion Rights
-  output_path: /remote-home/xymou/xymou_page/HiSim/output/roe_macro.pkl
+  output_path: /HiSim/output/roe_macro_llm.pkl
   trigger_news:
     0: News- The Supreme Court overturns Roe v. Wade, effectively ending nearly 50 years of federally guaranteed access to abortion. Chief Justice John Roberts joined the conservative justices in the decision to uphold Mississippi's law, but urged a concurring opinion concerning Roe. The decision is expected to lead to abortion bans in roughly half the states in the nation.
     11: News- More than 180 abortion rights protesters were arrested in Washington, D.C. after sitting and blocking an intersection near the Supreme Court.
@@ -70,43 +70,6 @@ environment:
       type: twitter
     describer:
       type: twitter
-
-abm_model:
-  model_type: bcm
-  order: random
-  alpha: 0.3
-  bc_bound: 0.1
-  agent_config_lst:
-  - id: 0
-    init_att: 0.1774
-    name: S***e
-  - id: 1
-    init_att: 0.0982
-    name: J***2
-  - id: 2
-    init_att: 0.5545
-    name: a***l
-  - id: 3
-    init_att: 0.3741
-    name: P***n
-  - id: 4
-    init_att: 0.2459
-    name: P***x
-  - id: 5
-    init_att: 0.0786
-    name: P***f
-  - id: 6
-    init_att: 0.2726
-    name: H***t
-  - id: 7
-    init_att: 0
-    name: s***d
-  - id: 8
-    init_att: 0.1722
-    name: S***8
-  - id: 9
-    init_att: 0.0172
-    name: v***i
 
 agents:
 - agent_type: twitter
